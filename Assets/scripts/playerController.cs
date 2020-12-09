@@ -5,17 +5,41 @@ using UnityEngine;
 public class playerController : MonoBehaviour
 {
     private Rigidbody playerrig;
+    public float gravityoffset = 10;
+    public float speed = 12;
+    private bool onGround = true;
+    public bool gameOver = false;
 
     // Start is called before the first frame update
     void Start()
     {
         playerrig = GetComponent<Rigidbody>();
-        playerrig.AddForce(Vector3.up * 750);
+        Physics.gravity *= gravityoffset;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //detec space key
+        if (Input.GetKeyDown(KeyCode.Space) && onGround) 
+        {
+            playerrig.AddForce(Vector3.up * speed, ForceMode.Impulse);
+            onGround = false;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //onGround = true;
+
+        if (collision.gameObject.CompareTag("ground"))
+        {
+            onGround = true;
+        }
+        else if (collision.gameObject.CompareTag("ob"))
+        {
+            gameOver = true;
+            Debug.Log("Game over");
+        }
     }
 }
