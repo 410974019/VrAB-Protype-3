@@ -8,6 +8,7 @@ public class playerController : MonoBehaviour
     private Animator playerani;
 
     public ParticleSystem smoke;
+    public ParticleSystem dirt;
 
     public float gravityoffset = 10;
     public float speed = 12;
@@ -32,6 +33,7 @@ public class playerController : MonoBehaviour
             playerrig.AddForce(Vector3.up * speed, ForceMode.Impulse);
             onGround = false;
             playerani.SetTrigger("Jump_trig");
+            dirt.Stop();
         }
     }
 
@@ -39,9 +41,10 @@ public class playerController : MonoBehaviour
     {
         //onGround = true;
 
-        if (collision.gameObject.CompareTag("ground"))
+        if (collision.gameObject.CompareTag("ground") && gameOver == false)
         {
             onGround = true;
+            dirt.Play();
         }
         else if (collision.gameObject.CompareTag("ob"))
         {
@@ -49,6 +52,7 @@ public class playerController : MonoBehaviour
             playerani.SetBool("Death_b", true);
             playerani.SetInteger("DeathType_int", 1);
             smoke.Play();
+            dirt.Stop();
             Debug.Log("Game over");
         }
     }
