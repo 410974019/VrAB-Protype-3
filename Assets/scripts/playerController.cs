@@ -44,6 +44,8 @@ public class playerController : MonoBehaviour
         else if (collision.gameObject.CompareTag("ob"))
         {
             gameOver = true;
+            playerani.SetBool("Death_b", true);
+            playerani.SetInteger("DeathType_int", 1);
             Debug.Log("Game over");
         }
     }
