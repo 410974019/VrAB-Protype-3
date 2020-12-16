@@ -5,6 +5,8 @@ using UnityEngine;
 public class playerController : MonoBehaviour
 {
     private Rigidbody playerrig;
+    private Animator playerani;
+
     public float gravityoffset = 10;
     public float speed = 12;
     private bool onGround = true;
@@ -14,6 +16,8 @@ public class playerController : MonoBehaviour
     void Start()
     {
         playerrig = GetComponent<Rigidbody>();
+        playerani = GetComponent<Animator>();
+
         Physics.gravity *= gravityoffset;
     }
 
@@ -25,6 +29,7 @@ public class playerController : MonoBehaviour
         {
             playerrig.AddForce(Vector3.up * speed, ForceMode.Impulse);
             onGround = false;
+            playerani.SetTrigger("Jump_trig");
         }
     }
 
