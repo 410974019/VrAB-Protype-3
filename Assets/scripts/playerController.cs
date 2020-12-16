@@ -7,6 +7,8 @@ public class playerController : MonoBehaviour
     private Rigidbody playerrig;
     private Animator playerani;
 
+    public ParticleSystem smoke;
+
     public float gravityoffset = 10;
     public float speed = 12;
     private bool onGround = true;
@@ -46,6 +48,7 @@ public class playerController : MonoBehaviour
             gameOver = true;
             playerani.SetBool("Death_b", true);
             playerani.SetInteger("DeathType_int", 1);
+            smoke.Play();
             Debug.Log("Game over");
         }
     }
